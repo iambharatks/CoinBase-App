@@ -24,11 +24,17 @@ class HomeController extends GetxController {
   void increment() => count.value++;
 
   RxList coinsList = List<CoinsDTO>.empty().obs;
+  RxString logo = "".obs;
+
+  onRefresh() async {
+    coinsList.clear();
+    await getCoinsList();
+    return;
+  }
 
   getCoinsList() async {
     try {
-      List<CoinsDTO> response =
-          await CoinsRepository().getCoinsList();
+      List<CoinsDTO> response = await CoinsRepository().getCoinsList();
       response.forEach((element) {
         print(element);
       });

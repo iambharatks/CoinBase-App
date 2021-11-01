@@ -25,7 +25,6 @@ class Coins {
   late final int? id;
   late final String? name;
   late final String? symbol;
-
   Coins(
     this.id,
     this.name,

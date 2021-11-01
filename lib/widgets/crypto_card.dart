@@ -14,13 +14,13 @@ class CryptoCard extends StatelessWidget {
   CryptoCard({required this.info});
 
   getImage() {
-    return "https://s2.coinmarketcap.com/static/img/coins/64x64/${info.id}.png";
+    return info.image;
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      scrollDirection:Axis.horizontal ,
+      scrollDirection: Axis.horizontal,
       child: GestureDetector(
         child: Row(
           children: [
@@ -30,7 +30,7 @@ class CryptoCard extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: NetworkImage(getImage()),
+                  image: getImage(),
                 ),
               ),
             ),

@@ -5,6 +5,7 @@ import 'package:coinbase/modules/coin/controllers/coin_controller.dart';
 import 'package:coinbase/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CoinView extends GetView<CoinController> {
   static launch() => Get.toNamed(Routes.COIN_VIEW);
@@ -40,7 +41,7 @@ class CoinView extends GetView<CoinController> {
       body: SingleChildScrollView(
         child: Obx(
           () => (getData()!.marketCap == 0)
-              ? const SizedBox().marginZero
+              ? BuildShimmer()
               : RefreshIndicator(
                   onRefresh: () async {
                     await controller.getCoinData();
@@ -72,6 +73,38 @@ class CoinView extends GetView<CoinController> {
                 ),
         ),
       ),
+    );
+  }
+}
+
+class BuildShimmer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20),
+      child: Shimmer.fromColors(
+          baseColor: Colors.grey.shade300,
+          highlightColor: Colors.grey.shade100,
+          child: Column(
+            children: const [
+              Text(
+                "MarketCap :",
+                style: Styles.tsPrimaryBlueMedium14,
+              ),
+              Text(
+                "Price (In USD) : + ",
+                style: Styles.tsPrimaryBlueMedium14,
+              ),
+              Text(
+                "Percent change 24H : ",
+                style: Styles.tsPrimaryBlueMedium14,
+              ),
+              Text(
+                "Last Updated :",
+                style: Styles.tsPrimaryBlueMedium14,
+              ),
+            ],
+          )),
     );
   }
 }
